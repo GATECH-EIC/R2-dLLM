@@ -14,6 +14,13 @@ Diffusion Large Language Models (dLLMs) have emerged as a promising alternative 
 <img width="928" alt="image" src="figures/visualization.png"> 
 </p>
 
+## Models
+
+|Models|Base Models|Checkpoints|
+|:---------|:---------|:--------|
+|$R^{2}$-dLLM-LLaDA|[LLaDA-Instruct-8B](https://huggingface.co/GSAI-ML/LLaDA-8B-Instruct)|[Hugging Face](https://huggingface.co/ZhenbangDu/R2-dLLM-LLaDA)
+|$R^{2}$-dLLM-Dream|[Dream-v0-Instruct-7B](https://huggingface.co/Dream-org/Dream-v0-Instruct-7B)|[Hugging Face](https://huggingface.co/ZhenbangDu/R2-dLLM-Dream)
+
 ## Citation
 
 If you find this work useful for your research, please cite:
