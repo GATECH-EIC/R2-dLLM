@@ -1,4 +1,8 @@
 # $R^{2}$-dLLM: Accelerating Diffusion Large Language Models via Spatio-Temporal Redundancy Reduction
+
+<a href='https://arxiv.org/abs/2604.18995'><img src='https://img.shields.io/badge/Technique-Report-red'></a> 
+<a href='https://huggingface.co/collections/ZhenbangDu/r2-dllm'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue'></a>
+
 The code for the paper [$R^{2}$-dLLM: Accelerating Diffusion Large Language Models via Spatio-Temporal Redundancy Reduction](https://arxiv.org/abs/2604.18995)
 - Authors: Zhenbang Du, Kejing Xia, Xinrui Zhong, Yonggan Fu, Nicolai Oswald, Binfei Ji, Brucek Khailany, Pavlo Molchanov, and Yingyan (Celine) Lin.
 
