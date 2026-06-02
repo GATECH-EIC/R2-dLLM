@@ -1,9 +1,9 @@
 # $R^{2}$-dLLM: Accelerating Diffusion Large Language Models via Spatio-Temporal Redundancy Reduction
 
-<a href='https://arxiv.org/abs/2604.18995'><img src='https://img.shields.io/badge/Technique-Report-red'></a> 
+<a href='https://arxiv.org/abs/2604.18995'><img src='https://img.shields.io/badge/Technical-Report-red'></a> 
 <a href='https://huggingface.co/collections/ZhenbangDu/r2-dllm'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue'></a>
 
-The code for the paper [$R^{2}$-dLLM: Accelerating Diffusion Large Language Models via Spatio-Temporal Redundancy Reduction](https://arxiv.org/abs/2604.18995)
+Official code for the paper [$R^{2}$-dLLM: Accelerating Diffusion Large Language Models via Spatio-Temporal Redundancy Reduction](https://arxiv.org/abs/2604.18995).
 - Authors: Zhenbang Du, Kejing Xia, Xinrui Zhong, Yonggan Fu, Nicolai Oswald, Binfei Ji, Brucek Khailany, Pavlo Molchanov, and Yingyan (Celine) Lin.
 
 ## Abstract
@@ -18,8 +18,63 @@ Diffusion Large Language Models (dLLMs) have emerged as a promising alternative 
 
 |Models|Base Models|Checkpoints|
 |:---------|:---------|:--------|
-|$R^{2}$-dLLM-LLaDA|[LLaDA-Instruct-8B](https://huggingface.co/GSAI-ML/LLaDA-8B-Instruct)|[Hugging Face](https://huggingface.co/ZhenbangDu/R2-dLLM-LLaDA)
-|$R^{2}$-dLLM-Dream|[Dream-v0-Instruct-7B](https://huggingface.co/Dream-org/Dream-v0-Instruct-7B)|[Hugging Face](https://huggingface.co/ZhenbangDu/R2-dLLM-Dream)
+|$R^{2}$-dLLM-LLaDA|[LLaDA-Instruct-8B](https://huggingface.co/GSAI-ML/LLaDA-8B-Instruct)|[Hugging Face](https://huggingface.co/ZhenbangDu/R2-dLLM-LLaDA)|
+|$R^{2}$-dLLM-Dream|[Dream-v0-Instruct-7B](https://huggingface.co/Dream-org/Dream-v0-Instruct-7B)|[Hugging Face](https://huggingface.co/ZhenbangDu/R2-dLLM-Dream)|
+
+## Installation
+
+```bash
+git clone https://github.com/GATECH-EIC/R2-dLLM.git
+cd R2-dLLM
+
+conda create -n r2dllm python=3.10.12
+conda activate r2dllm
+pip install torch==2.9.0 torchvision==0.24.0 --index-url https://download.pytorch.org/whl/cu130
+pip install -r requirements.txt
+```
+
+## Repository Structure
+
+```text
+llada/   LLaDA model wrapper, R2 decoding implementation, demos, and eval scripts
+dream/   Dream model wrapper, R2 decoding implementation, demos, and eval scripts
+figures/ Paper figures used by this README
+```
+
+## Evaluation
+
+### LLaDA
+
+```bash
+cd llada
+bash eval_gsm8k.sh
+bash eval_math.sh
+bash eval_humaneval.sh
+bash eval_mbpp.sh
+```
+
+The LLaDA scripts default to `GSAI-ML/LLaDA-8B-Instruct`. To evaluate the SFT checkpoint, set `model_path='ZhenbangDu/R2-dLLM-LLaDA'` in the corresponding script. To evaluate LLaDA-1.5, set `model_path='GSAI-ML/LLaDA-1.5'`.
+
+### Dream
+
+```bash
+cd dream
+bash eval_gsm8k.sh
+bash eval_humaneval.sh
+```
+
+The Dream scripts default to public Dream checkpoints. To evaluate the SFT checkpoint, set `model="ZhenbangDu/R2-dLLM-Dream"` in the corresponding script. For additional lm-eval tasks such as MATH or MBPP, adapt `--tasks` following the examples in `dream/eval.md`.
+
+### R2 Decoding Parameters
+
+- `temporal_steps`: number of consecutive decoding attempts required for temporal redundancy reduction.
+- `temporal_threshold`: confidence threshold for temporal finalization.
+- `temporal_eval`: confidence aggregation strategy for temporal finalization, such as `last`, `ave`, or `max`.
+- `confidence_cluster_size`: local window size for confidence-cluster aggregation.
+- `spatial_threshold`: confidence threshold for spatial aggregation.
+- `confidence_cluster_unmasked`: maximum number of already-unmasked tokens allowed inside a confidence window.
+- `token_cluster`: position-selection rule for token-cluster aggregation, such as `confidence`, `mid`, or `random`.
+- `token_cluster_size`: minimum repeated-token cluster size, currently used by the Dream implementation.
 
 ## Citation
 
